@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern "C" __declspec(dllexport) // Export the hash func
-unsigned char* hashNode(char command[], char nextHash[]) {
+extern __declspec(dllexport) // Export the hash func
+unsigned char* hashNode(char* command, char* nextHash){
 	unsigned char* hash = (unsigned char*)malloc(sizeof(unsigned char) * 5);
 
 	for (int i = 0; i < 5; i++) {
@@ -39,12 +39,14 @@ unsigned char* hashNode(char command[], char nextHash[]) {
 }
 
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
+BOOL APIENTRY DllMain(HMODULE hModule,
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved
+)
 {
-    switch (ul_reason_for_call)
+	printf("Hash DLL main\n");
+    
+	switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
     case DLL_THREAD_ATTACH:
