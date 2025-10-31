@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern __declspec(dllexport) // Export the hash func
-unsigned char* hashNode(char* command, char* nextHash){
+// Generate a hash based on a string and another hash
+extern "C" __declspec(dllexport) // Export the hash func
+unsigned char* __stdcall hashNode(char* command, unsigned char* nextHash){
 	unsigned char* hash = (unsigned char*)malloc(sizeof(unsigned char) * 5);
 
 	for (int i = 0; i < 5; i++) {
@@ -44,7 +45,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	LPVOID lpReserved
 )
 {
-	printf("Hash DLL main\n");
+	//printf("Hello from HashProject DLL\n"); // DEBUG
     
 	switch (ul_reason_for_call)
     {
